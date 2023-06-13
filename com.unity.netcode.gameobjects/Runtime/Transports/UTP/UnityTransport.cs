@@ -549,7 +549,7 @@ namespace Unity.Netcode.Transports.UTP
             int result = m_Driver.Bind(bindEndpoint);
             if (result != 0)
             {
-                Debug.LogError("Client failed to bind");
+                Debug.LogError($"Client failed to bind {bindEndpoint.Address} :{bindEndpoint.Port}");
                 return false;
             }
 
@@ -573,14 +573,14 @@ namespace Unity.Netcode.Transports.UTP
             int result = m_Driver.Bind(endPoint);
             if (result != 0)
             {
-                Debug.LogError("Server failed to bind. This is usually caused by another process being bound to the same port.");
+                Debug.LogError($"Server failed to bind. This is usually caused by another process being bound to the same port.  {endPoint.Address} :{endPoint.Port}");
                 return false;
             }
 
             result = m_Driver.Listen();
             if (result != 0)
             {
-                Debug.LogError("Server failed to listen.");
+                Debug.LogError($"Server failed to listen. {endPoint.Address} :{endPoint.Port}");
                 return false;
             }
 
