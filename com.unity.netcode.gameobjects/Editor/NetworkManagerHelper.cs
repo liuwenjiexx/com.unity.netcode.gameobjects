@@ -110,6 +110,7 @@ namespace Unity.Netcode.Editor
         /// </summary>
         private static void EditorApplication_hierarchyChanged()
         {
+            if (EditorApplication.isPlaying) return;
             var allNetworkManagers = Resources.FindObjectsOfTypeAll<NetworkManager>();
             foreach (var networkManager in allNetworkManagers)
             {
