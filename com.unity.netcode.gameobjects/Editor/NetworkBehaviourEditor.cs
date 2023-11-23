@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+#if ODIN_INSPECTOR
 using Sirenix.OdinInspector.Editor;
+#endif
 using Unity.Netcode.Editor.Configuration;
 using UnityEditor;
 using UnityEngine;
@@ -13,10 +15,18 @@ namespace Unity.Netcode.Editor
     /// </summary>
     [CustomEditor(typeof(NetworkBehaviour), true)]
     [CanEditMultipleObjects]
-    public class NetworkBehaviourEditor : OdinEditor
+    public class NetworkBehaviourEditor :
+#if ODIN_INSPECTOR
+        OdinEditor
+#else
+        UnityEditor.Editor
+#endif
     {
         private bool m_Initialized;
+#if ODIN_INSPECTOR
         private bool m_drawOdin;
+
+#endif
         private readonly List<string> m_NetworkVariableNames = new List<string>();
         private readonly Dictionary<string, FieldInfo> m_NetworkVariableFields = new Dictionary<string, FieldInfo>();
         private readonly Dictionary<string, object> m_NetworkVariableObjects = new Dictionary<string, object>();
@@ -50,13 +60,14 @@ namespace Unity.Netcode.Editor
                     m_NetworkVariableFields.Add(ObjectNames.NicifyVariableName(fields[i].Name), fields[i]);
                 }
             }
-
+#if ODIN_INSPECTOR
             m_drawOdin = false;
             var attribute = script.GetClass().GetCustomAttribute<NetworkBehaviourOdinAttribute>();
             if (attribute != null)
             {
                 m_drawOdin = true;
             }
+#endif
         }
 
         private void RenderNetworkVariable(int index)
@@ -268,12 +279,13 @@ namespace Unity.Netcode.Editor
                 var targetScript = scriptProperty.objectReferenceValue as MonoScript;
                 Init(targetScript);
             }
-
+#if ODIN_INSPECTOR
             if (m_drawOdin)
             {
                 base.OnInspectorGUI();
                 return;
             }
+#endif
 
             EditorGUI.BeginChangeCheck();
             serializedObject.Update();
