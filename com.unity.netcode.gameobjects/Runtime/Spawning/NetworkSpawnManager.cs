@@ -623,7 +623,9 @@ namespace Unity.Netcode
                 // Add client observers
                 for (int i = 0; i < NetworkManager.ConnectedClientsList.Count; i++)
                 {
-                    if (networkObject.CheckObjectVisibility == null || networkObject.CheckObjectVisibility(NetworkManager.ConnectedClientsList[i].ClientId))
+
+                    if ((NetworkObject.CheckNetworkObjectVisibility == null || NetworkObject.CheckNetworkObjectVisibility(NetworkManager.ConnectedClientsList[i].ClientId)) &&
+                        (networkObject.CheckObjectVisibility == null || networkObject.CheckObjectVisibility(NetworkManager.ConnectedClientsList[i].ClientId)))
                     {
                         networkObject.Observers.Add(NetworkManager.ConnectedClientsList[i].ClientId);
                     }
@@ -959,6 +961,11 @@ namespace Unity.Netcode
         {
             foreach (var sobj in SpawnedObjectsList)
             {
+                if (NetworkObject.CheckNetworkObjectVisibility != null && !NetworkObject.CheckNetworkObjectVisibility(clientId))
+                {
+                    continue;
+                }
+
                 if (sobj.CheckObjectVisibility == null)
                 {
                     if (!sobj.Observers.Contains(clientId))
