@@ -9,7 +9,7 @@ namespace Unity.Netcode.Components
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(NetworkTransform))]
     [AddComponentMenu("Netcode/Network Rigidbody")]
-    public class NetworkRigidbody : NetworkBehaviour
+     public class NetworkRigidbody : NetworkBehaviour
     {
         /// <summary>
         /// Determines if we are server (true) or owner (false) authoritative

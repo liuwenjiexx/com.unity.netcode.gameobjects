@@ -1044,7 +1044,7 @@ namespace Unity.Netcode
                     reader.ReadValueSafe(out networkObjectId);
                     if (!spawnManager.SpawnedObjects.ContainsKey(networkObjectId))
                     {
-                        NetworkLog.LogError($"[Object Scene Migration] Trying to synchronize NetworkObjectId ({networkObjectId}) but it was not spawned or no longer exists!!");
+                        //NetworkLog.LogError($"[Object Scene Migration] Trying to synchronize NetworkObjectId ({networkObjectId}) but it was not spawned or no longer exists!!");
                         continue;
                     }
                     // Add NetworkObject scene migration to ObjectsMigratedIntoNewScene dictionary that is processed

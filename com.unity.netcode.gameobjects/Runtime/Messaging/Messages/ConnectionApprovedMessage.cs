@@ -45,7 +45,7 @@ namespace Unity.Netcode
                 // Serialize NetworkVariable data
                 foreach (var sobj in SpawnedObjectsList)
                 {
-                    if ((NetworkObject.CheckNetworkObjectVisibility == null || NetworkObject.CheckNetworkObjectVisibility(OwnerClientId)) &&
+                    if ((NetworkObject.CheckNetworkObjectVisibility == null || NetworkObject.CheckNetworkObjectVisibility(sobj, OwnerClientId)) &&
                         (sobj.CheckObjectVisibility == null || sobj.CheckObjectVisibility(OwnerClientId)))
                     {
                         sobj.Observers.Add(OwnerClientId);

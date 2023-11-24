@@ -205,11 +205,12 @@ namespace Unity.Netcode
         /// </summary>
         public VisibilityDelegate CheckObjectVisibility = null;
 
+        public delegate bool CheckNetworkObjectVisibilityDelegate(NetworkObject obj, ulong clientId);
         /// <summary>
         /// 扩展全局检查
         /// </summary>
-        public static VisibilityDelegate CheckNetworkObjectVisibility = null;
-
+        public static CheckNetworkObjectVisibilityDelegate CheckNetworkObjectVisibility = null;
+        
 
         /// <summary>
         /// Delegate type for checking spawn options
@@ -365,7 +366,7 @@ namespace Unity.Netcode
                 throw new VisibilityChangeException("The object is already visible");
             }
 
-            if (CheckNetworkObjectVisibility != null && !CheckNetworkObjectVisibility(clientId))
+            if (CheckNetworkObjectVisibility != null && !CheckNetworkObjectVisibility(this, clientId))
             {
                 return;
             }
